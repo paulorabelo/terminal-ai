@@ -67,7 +67,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🔐 Configuração (Crítico)
+## 🔐 Configuração
 
 Para que o assistente funcione, você precisa configurar sua chave de API e criar o atalho (alias). Vamos fazer isso de forma **persistente**, para funcionar sempre que você abrir o terminal.
 
