@@ -11,7 +11,7 @@ Transforme seu terminal em uma ferramenta capaz de diagnosticar erros, explicar 
 
 - **Modo Híbrido Inteligente:**
   - 🛡️ **Padrão (Gemma 3):** Usa o modelo `gemma-3-27b-it` para alta disponibilidade (aprox. 14.000 requisições/dia). Ideal para tarefas rotineiras.
-  - 🚀 **Modo PRO (Gemini 2.5):** Ative o modelo `gemini-2.5-flash` para raciocínio complexo usando a flag `pro` ou `turbo`.
+  - 🚀 **Modo PRO (Gemini 3-flash-preview):** Ative o modelo `gemini-3-flash-preview` para raciocínio complexo usando a flag `pro` ou `turbo`.
 - **Contador de Cota Local:** Monitora seu uso diário do modo PRO para você não estourar o limite do plano gratuito.
 - **Diagnóstico de Erros:** Detecta automaticamente se o input é grande demais e sugere o uso de filtros (`grep`, `head`).
 
@@ -105,7 +105,7 @@ Bash
 ajuda "Como listo apenas pastas no Linux?"
 ```
 
-### Uso PRO (Modelo Gemini 2.5 - Mais Inteligente)
+### Uso PRO (Modelo Gemini 3-flash-preview - Mais Inteligente)
 
 Use quando precisar de uma análise profunda. Consome sua cota diária limitada (aprox. 20 req/dia).
 
