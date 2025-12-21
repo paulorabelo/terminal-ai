@@ -1,13 +1,16 @@
 # 🐧 Terminal AI Assistant
 
-Um assistente de linha de comando (CLI) inteligente para Linux, turbinado pela API do Google Gemini.
+Um assistente de linha de comando (CLI) inteligente para Linux, turbinado pela API do Google Gemini ou Gemma.
 
 Transforme seu terminal em uma ferramenta capaz de diagnosticar erros, explicar comandos e analisar logs complexos usando Inteligência Artificial, tudo sem sair da tela preta.
 
-![Terminal AI em ação](/ajuda.png)
-*(Dica: Substitua este link por um print real do seu terminal depois)*
+![Terminal AI em ação](/gemini-3-flash.webp)
+*(Ex: Saída com o novo Gemini 3 Flash (preview))*
 
-## 🚀 Novidades da Versão 2.0
+![Terminal AI em ação](/ajuda.webp)
+*(Ex: Uso com Gemma, erro por excesso de token e uso com Gemini 2.5 flash)*
+
+## 🚀 Novidades da Versão 2.01
 
 - **Modo Híbrido Inteligente:**
   - 🛡️ **Padrão (Gemma 3):** Usa o modelo `gemma-3-27b-it` para alta disponibilidade (aprox. 14.000 requisições/dia). Ideal para tarefas rotineiras.
@@ -95,7 +98,7 @@ Para que o assistente funcione sempre, configure sua chave de API e o atalho no 
 
 ## 🏃‍♂️ Como Usar
 
-### Uso Básico (Modelo Gemma - Ilimitado*)
+### Uso Básico (Modelo Gemma - "quase" Ilimitado 😂🙈)
 
 Ótimo para perguntas rápidas e explicações simples.
 
