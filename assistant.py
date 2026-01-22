@@ -1,4 +1,5 @@
-import google.genai as genai
+from google import genai
+from google.genai import types
 import sys
 import os
 import json
@@ -10,16 +11,15 @@ if not api_key:
     print("❌ Erro: Chave de API não encontrada.")
     sys.exit(1)
 
-# genai.configure(api_key=api_key) # Depreciado
-
-# JEITO NOVO: Instancia o cliente
+# JEITO NOVO: Instancia o cliente com a chave
 client = genai.Client(api_key=api_key)
 
 # --- CONFIGURAÇÃO DE LIMITES ---
-LIMIT_PRO = 20 # O limite oficial do Gemini 2.5 Flash (diminui muito, mas vamos ser conservadores)
+LIMIT_PRO = 20 
 USAGE_FILE = os.path.expanduser("~/.gemini_usage.json")
 
 # --- SELETOR DE MODELO ---
+# Nota: Mantendo as strings exatas que você solicitou.
 model_name = "gemma-3-27b-it" # Padrão (Gemma)
 user_args = sys.argv[1:]
 is_pro_mode = False
@@ -30,7 +30,8 @@ if user_args and (user_args[0].lower() in ["pro", "turbo", "flash"]):
     user_args = user_args[1:]
     print(f"🚀 Modo PRO ({model_name}) ativado!")
 
-model = genai.GenerativeModel(model_name=model_name)
+# --- REMOVIDO: model = genai.GenerativeModel(...) ---
+# No novo SDK, não instanciamos o modelo aqui. Usamos a string 'model_name' lá embaixo.
 
 SYSTEM_PROMPT = """
     ATUAÇÃO: Você é um Engenheiro de Software Sênior e especialista em Linux (Mint/Ubuntu).
@@ -62,8 +63,7 @@ def get_daily_usage():
                 if saved_data.get("date") == today_str:
                     data = saved_data
         except:
-            pass # Se der erro no arquivo, reseta
-            
+            pass 
     return data
 
 def update_usage(current_count):
@@ -89,21 +89,27 @@ def main():
         return
 
     # --- CHECAGEM DE USO (Só no modo PRO) ---
+    usage_data = get_daily_usage()
     if is_pro_mode:
-        usage_data = get_daily_usage()
         used = usage_data["count"]
         if used >= LIMIT_PRO:
             print(f"⚠️ Limite diário do modo PRO atingido ({used}/{LIMIT_PRO}).")
             print("💡 Dica: Use sem o 'pro' para usar o modelo Gemma quase \"ilimitado\".")
             sys.exit(0)
 
-    # Monta o Prompt Único (Concatenação)
+    # Monta o Prompt Único
     final_prompt = f"{SYSTEM_PROMPT}\n\n--- DADOS ---\n{pipe_content}\n\n--- PERGUNTA ---\n{user_query}"
 
     print("🤖 Analisando...", end="\r")
 
     try:
-        response = model.generate_content(final_prompt)
+        # --- A GRANDE MUDANÇA AQUI ---
+        # Chamada usando o client e passando o nome do modelo como string
+        response = client.models.generate_content(
+            model=model_name,
+            contents=final_prompt
+        )
+        
         print(" " * 20, end="\r")
         print(response.text)
         
@@ -111,11 +117,14 @@ def main():
         if is_pro_mode:
             update_usage(usage_data["count"])
             remaining = LIMIT_PRO - (usage_data["count"] + 1)
-            # Imprime o rodapé bonitinho
             print(f"\n📊 Cota PRO hoje: {usage_data['count'] + 1}/{LIMIT_PRO} (Restam: {remaining})")
 
     except Exception as e:
         print(f"\n❌ Erro: {e}")
+        # Tratamento simples para erro de nome de modelo incorreto
+        if "404" in str(e) or "not found" in str(e).lower():
+            print(f"⚠️ DICA: O modelo '{model_name}' pode não estar disponível ou o nome mudou.")
+            print("   Tente usar 'gemini-3-flash' ou 'gemini-3-flash-preview'.")
 
 if __name__ == "__main__":
     main()
