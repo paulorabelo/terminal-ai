@@ -19,7 +19,6 @@ LIMIT_PRO = 20
 USAGE_FILE = os.path.expanduser("~/.gemini_usage.json")
 
 # --- SELETOR DE MODELO ---
-# Nota: Mantendo as strings exatas que você solicitou.
 model_name = "gemma-3-27b-it" # Padrão (Gemma)
 user_args = sys.argv[1:]
 is_pro_mode = False
