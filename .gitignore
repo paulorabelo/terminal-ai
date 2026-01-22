@@ -1,0 +1,12 @@
+# Ambientes virtuais (Python)
+venv/
+ENV/
+env/
+
+# Arquivos de cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Arquivo de uso local (Telemetria)
+.gemini_usage.json
