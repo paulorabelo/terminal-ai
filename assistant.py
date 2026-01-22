@@ -10,7 +10,10 @@ if not api_key:
     print("❌ Erro: Chave de API não encontrada.")
     sys.exit(1)
 
-genai.configure(api_key=api_key)
+# genai.configure(api_key=api_key) # Depreciado
+
+# JEITO NOVO: Instancia o cliente
+client = genai.Client(api_key=api_key)
 
 # --- CONFIGURAÇÃO DE LIMITES ---
 LIMIT_PRO = 20 # O limite oficial do Gemini 2.5 Flash (diminui muito, mas vamos ser conservadores)
