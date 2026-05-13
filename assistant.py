@@ -19,12 +19,12 @@ LIMIT_PRO = 20
 USAGE_FILE = os.path.expanduser("~/.gemini_usage.json")
 
 # --- SELETOR DE MODELO ---
-model_name = "gemma-3-27b-it" # Padrão (Gemma)
+model_name = "gemma-4-31b-it" # Padrão (Gemma)
 user_args = sys.argv[1:]
 is_pro_mode = False
 
 if user_args and (user_args[0].lower() in ["pro", "turbo", "flash"]):
-    model_name = "gemini-3-flash-preview"
+    model_name = "gemini-3.1-flash-lite"
     is_pro_mode = True
     user_args = user_args[1:]
     print(f"🚀 Modo PRO ({model_name}) ativado!")
