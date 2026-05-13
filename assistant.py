@@ -101,6 +101,9 @@ def main():
 
     print("🤖 Analisando...", end="\r")
 
+    # Define um modelo padrão para fallback
+    FALLBACK_MODEL = "gemini-flash-latest"
+
     try:
         # --- A GRANDE MUDANÇA AQUI ---
         # Chamada usando o client e passando o nome do modelo como string
@@ -119,11 +122,36 @@ def main():
             print(f"\n📊 Cota PRO hoje: {usage_data['count'] + 1}/{LIMIT_PRO} (Restam: {remaining})")
 
     except Exception as e:
-        print(f"\n❌ Erro: {e}")
-        # Tratamento simples para erro de nome de modelo incorreto
-        if "404" in str(e) or "not found" in str(e).lower():
-            print(f"⚠️ DICA: O modelo '{model_name}' pode não estar disponível ou o nome mudou.")
-            print("   Tente usar 'gemini-3-flash' ou 'gemini-3-flash-preview'.")
+        error_msg = str(e)
+        
+        # Se o erro for de Servidor (500 ou 503), aciona o Plano B
+        if "500" in error_msg or "503" in error_msg:
+            print(f"⚠️ O servidor falhou com o modelo '{model_name}' (Erro de estabilidade/demanda).")
+            print(f"🔄 Acionando Plano B (Fallback para {FALLBACK_MODEL})...")
+            
+            try:
+                # Tentativa 2: Modelo de Segurança
+                response_fallback = client.models.generate_content(
+                    model=FALLBACK_MODEL,
+                    contents=final_prompt
+                )
+                print(" " * 20, end="\r")
+                print(response_fallback.text)
+                print(f"\n(ℹ️ Resposta gerada pelo modelo de segurança: {FALLBACK_MODEL})")
+                
+            except Exception as fallback_error:
+                print(f"\n❌ Falha Crítica: O modelo de segurança também falhou: {fallback_error}")
+                
+        # Tratamento de Erro de Cota (429)
+        elif "429" in error_msg:
+            print("❌ ERRO DE COTA (429): Limite excedido.")
+            print("⚠️ Aguarde um pouco ou verifique se o arquivo de entrada é muito grande.")
+            
+        # Qualquer outro erro (como nome de modelo errado)
+        else:
+            print(f"\n❌ Erro na API: {error_msg}")
+            if "404" in error_msg or "not found" in error_msg.lower():
+                print(f"⚠️ DICA: O modelo '{model_name}' pode não estar disponível para sua chave.")
 
 if __name__ == "__main__":
     main()
