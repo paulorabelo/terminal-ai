@@ -15,7 +15,7 @@ if not api_key:
 client = genai.Client(api_key=api_key)
 
 # --- CONFIGURAÇÃO DE LIMITES ---
-LIMIT_PRO = 20 
+LIMIT_PRO = 500 
 USAGE_FILE = os.path.expanduser("~/.gemini_usage.json")
 
 # --- SELETOR DE MODELO ---
