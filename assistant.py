@@ -24,7 +24,7 @@ user_args = sys.argv[1:]
 is_pro_mode = False
 
 if user_args and (user_args[0].lower() in ["pro", "turbo", "flash"]):
-    model_name = "gemini-3.1-flash-lite"
+    model_name = "gemini-3.5-flash-lite"
     is_pro_mode = True
     user_args = user_args[1:]
     print(f"🚀 Modo PRO ({model_name}) ativado!")
