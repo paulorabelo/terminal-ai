@@ -10,7 +10,11 @@ Transforme seu terminal em uma ferramenta capaz de diagnosticar erros, explicar 
 ![Terminal AI em ação](/ajuda.webp)
 *(Ex: Uso com Gemma, tratamento de erro por excesso de token)*
 
-## 🚀 Novidades da Versão 2.2
+## 🚀 Novidades da Versão 2.2.1
+
+- **Modo PRO** agora com Gemini 3.5 Flash Lite
+
+## 🚀 Novidades da Versão 2.2.
 
 - **Resiliência com Fallback Automático (Graceful Degradation):** Se a infraestrutura do Google passar por instabilidades ou picos de demanda (Erros 500 ou 503), o assistente intercepta a falha e aciona silenciosamente um modelo de backup ultra-estável, garantindo que você nunca fique sem resposta.
 - **Novo Motor (SDK v1.0):** Código migrado para a nova biblioteca `google-genai` (Google Gen AI SDK), garantindo compatibilidade futura e maior performance.
@@ -19,7 +23,7 @@ Transforme seu terminal em uma ferramenta capaz de diagnosticar erros, explicar 
 ## 🧠 Modo Híbrido Inteligente
 
 - 🛡️ **Padrão (Gemma 4):** Usa o avançado modelo `gemma-4-31b-it`. Capacidade gigantesca de leitura (TPM ilimitado), ideal para analisar logs massivos de uma só vez, com limite de 1.500 requisições/dia.
-- 🚀 **Modo PRO (Gemini 3.1 Flash Lite):** Ative o modelo `gemini-3.1-flash-lite` para raciocínio analítico complexo usando a flag `pro` ou `turbo`. Limitado a aprox. 20 requisições/dia.
+- 🚀 **Modo PRO (Gemini 3.5 Flash Lite):** Ative o modelo `gemini-3.5-flash-lite` para raciocínio analítico complexo usando a flag `pro` ou `turbo`. Limitado a aprox. 20 requisições/dia.
 - 📉 **Controle de Cota Local:** Monitora seu uso diário do modo PRO no próprio terminal para evitar o bloqueio do plano gratuito.
 
 ---
